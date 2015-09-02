@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">سردبیر</string>
+    <string name="action_settings">تنظیمات</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="drawer_open">باز</string>
+    <string name="drawer_close">بستن</string>
+    <string name="action_search">جستجو</string>
+    <string name="string_download">دانلود کنید</string>
+    <string name="string_fav">اضافه به علاقه مندی</string>
+    <string name="string_add_to_fav">به لیست علاقه مندی‌ها اضافه شد</string>
+    <string name="action_storage_title">علاقه مندی‌ها</string>
+    <string name="no_internet">عدم دسترسی به اینترنت</string>
+    <string name="str_about">درباره آی‌تی کتاب</string>
+    <string name="str_wifi">وای‌فای</string>
+    <string name="str_cell_data">شبکه موبایل</string>
+    <string name="str_refresh">تلاش مجدد</string>
+	<string name="str_mobile_is_active">شبکه موبایل فعال شد</string>
+	<string name="str_or">یا</string>
+	<string name="str_buy">بخرید</string>
+	<string name="str_wait">لطفا کمی صبر کنید</string>
+	<string name="please_buy">لطفا این کتاب را خریداری بفرمایید</string>
+	<string name="str_warn">منبع کتابها : it-ebooks.info</string>
+    <string name="str_shanbe">شنبه</string>
+    <string name="str_yekshanbe">یک شنبه</string>
+    <string name="str_doshanbe">دوشنبه</string>
+    <string name="str_seshanbe">سه شنبه</string>
+    <string name="str_charshanbe">چهارشنبه</string>
+    <string name="str_panjshanbe">پنج شنبه</string>
+    <string name="str_jome">جمعه</string>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Sardabir</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="action_search">Search</string>
+    <string name="string_download">Download</string>
+    <string name="string_fav">Favorite</string>
+    <string name="string_add_to_fav">Favorited !</string>
+    <string name="action_storage_title">Fovorites</string>
+    <string name="no_internet">No Internet Connection !</string>
+    <string name="str_about">About</string>
+    <string name="str_wifi">Wifi</string>
+    <string name="str_cell_data">Mobile Data</string>
+    <string name="str_refresh">Retry</string>
+	<string name="str_mobile_is_active">Mobile Data Enabled!</string>
+	<string name="str_or">OR</string>
+	<string name="str_buy">Buy</string>
+	<string name="str_wait">Please wait...</string>
+	<string name="please_buy">Please Buy This E-Book!</string>
+	<string name="str_warn">We just use It-ebooks.info api to load books and we are not responsible for any problem outside this app :)</string>
+    <!--<string name="str_shanbe">Saturday</string>-->
+    <!--<string name="str_yekshanbe">Sunday</string>-->
+    <!--<string name="str_doshanbe">Monday</string>-->
+    <!--<string name="str_seshanbe">Tuesday</string>-->
+    <!--<string name="str_charshanbe">Wednesday</string>-->
+    <!--<string name="str_panjshanbe">Thursday</string>-->
+    <!--<string name="str_jome">Friday</string>-->
+    <string name="str_shanbe">شنبه</string>
+    <string name="str_yekshanbe">یک شنبه</string>
+    <string name="str_doshanbe">دوشنبه</string>
+    <string name="str_seshanbe">سه شنبه</string>
+    <string name="str_charshanbe">چهارشنبه</string>
+    <string name="str_panjshanbe">پنج شنبه</string>
+    <string name="str_jome">جمعه</string>
+
+</resources>
