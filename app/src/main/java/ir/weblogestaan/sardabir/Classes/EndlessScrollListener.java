@@ -5,7 +5,10 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 
 import ir.weblogestaan.sardabir.Classes.Subject;
+import ir.weblogestaan.sardabir.GuestActivity;
+import ir.weblogestaan.sardabir.HotActivity;
 import ir.weblogestaan.sardabir.MainActivity;
+import ir.weblogestaan.sardabir.ProfileActivity;
 import ir.weblogestaan.sardabir.SubjectsActivity;
 import ir.weblogestaan.sardabir.TermActivity;
 
@@ -41,14 +44,16 @@ public class EndlessScrollListener implements OnScrollListener {
         if (scrollState == SCROLL_STATE_IDLE) {
             if (lastVP >= listView.getCount() - 1 ) {
                 currentPage = currentPage + 1;
-                switch (this.className) {
-                    case "MainActivity" :
-                        ((MainActivity)that).LoadPosts(currentPage, true);
-                        break;
-                    case "TermActivity" :
-                        ((TermActivity)that).LoadPosts(currentPage, true);
-                        break;
-                }
+                if (that instanceof MainActivity)
+                    ((MainActivity)that).LoadPosts(currentPage, true);
+                else if (that instanceof HotActivity)
+                    ((HotActivity)that).LoadPosts(currentPage, true);
+                else if (that instanceof TermActivity)
+                    ((TermActivity)that).LoadPosts(currentPage, true);
+                else if (that instanceof ProfileActivity)
+                    ((ProfileActivity)that).LoadProfile(currentPage, true);
+                else if (that instanceof GuestActivity)
+                    ((GuestActivity)that).LoadPosts(currentPage, true);
             }
         }
     }

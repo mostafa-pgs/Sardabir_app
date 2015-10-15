@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="fill_parent" android:layout_width="fill_parent"
+    android:background="@drawable/splash_bgxml">
+<RelativeLayout
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <ImageButton
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:id="@+id/imgAppLogo"
+        android:src="@mipmap/user_placeholder"
+        android:layout_marginTop="45dp"
+        android:maxWidth="60dp"
+        android:maxHeight="60dp"
+        android:scaleType="centerInside"
+        android:background="#00000000"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ثبت نام"
+        android:id="@+id/txtAppName"
+        android:layout_below="@+id/imgAppLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:layout_marginBottom="4dp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="مجله الکترونیکی شخصی شما"
+        android:id="@+id/txtAppDesc"
+        android:layout_below="@+id/txtAppName"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/prgProgress"
+        android:layout_below="@+id/txtAppDesc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        style="?android:attr/progressBarStyleSmall" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="نام کاربری یا کلمه عبور اشتباه است."
+        android:id="@+id/txtError"
+        android:layout_below="@+id/prgProgress"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ff0000"
+        android:visibility="invisible"
+        android:layout_marginBottom="5dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/txtError"
+        android:layout_centerHorizontal="true">
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/EditTxtEmail"
+            android:layout_below="@+id/txtError"
+            android:layout_centerHorizontal="true"
+            android:background="#fff"
+            android:padding="7dp"
+            android:hint="آدرس ایمیل"
+            android:gravity="right"
+            android:layout_gravity="center" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/editTextName"
+            android:layout_below="@+id/EditTxtEmail"
+            android:layout_centerHorizontal="true"
+            android:background="#fff"
+            android:padding="7dp"
+            android:layout_marginTop="10dp"
+            android:hint="نام کاربری"
+            android:gravity="right"
+            android:layout_gravity="center"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/editTxtPassword"
+            android:layout_below="@+id/EditTxtEmail"
+            android:layout_centerHorizontal="true"
+            android:background="#fff"
+            android:padding="7dp"
+            android:layout_marginTop="10dp"
+            android:hint="کلمه عبور"
+            android:gravity="right"
+            android:layout_gravity="center" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/editTextRepeatPswd"
+            android:layout_below="@+id/EditTxtEmail"
+            android:layout_centerHorizontal="true"
+            android:background="#fff"
+            android:padding="7dp"
+            android:layout_marginTop="10dp"
+            android:hint="تکرار کلمه عبور"
+            android:gravity="right"
+            android:layout_gravity="center" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="ثبت نام"
+            android:id="@+id/btnRegister"
+            android:layout_gravity="center"
+            android:background="#0093a3"
+            android:textColor="#fff"
+            android:layout_marginTop="20dp" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:text="مهمان"
+                android:id="@+id/btnAnonymos"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:background="#d05457"
+                android:textColor="#fff"
+                android:textSize="11dp" />
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:text="ورود"
+                android:id="@+id/btnLogin"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:background="#52ba6d"
+                android:textColor="#fff"
+                android:layout_gravity="right"
+                android:textSize="11dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
+</ScrollView>

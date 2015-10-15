@@ -6,18 +6,16 @@ import java.util.ArrayList;
 
 import ir.weblogestaan.sardabir.R;
 
-/**
- * Created by Windows on 8/18/15.
- */
 public class Cache {
     public static ArrayList<Subject> subjects;
+    public static ArrayList<Notif.NotifBase> notifs;
     public static DisplayImageOptions getImageDisplayOptions()
     {
         return new DisplayImageOptions.Builder()
                 .cacheOnDisc(true)
-                .showImageForEmptyUri(R.mipmap.placeholder)
-                .showImageOnFail(R.mipmap.placeholder)
-                .showImageOnLoading(R.mipmap.placeholder)
+                .showImageForEmptyUri(R.mipmap.user_placeholder)
+                .showImageOnFail(R.mipmap.user_placeholder)
+                .showImageOnLoading(R.mipmap.user_placeholder)
                 .build();
     }
 }

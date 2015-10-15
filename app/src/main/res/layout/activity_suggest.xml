@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="fill_parent" android:layout_width="fill_parent"
+    android:background="@drawable/splash_bg">
+<RelativeLayout
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <include layout="@layout/custom_actionbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/include2"></include>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/str_suggest_rules"
+        android:id="@+id/txtRules"
+        android:textSize="12dp"
+        android:layout_below="@+id/include2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="10dp"
+        android:padding="5dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:id="@+id/linearLayout2"
+        android:layout_below="@+id/txtRules"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="آدرس سایت:"
+            android:id="@+id/txtSiteAddress"
+            android:textColor="#212121"
+            android:layout_centerVertical="true"
+            android:layout_alignRight="@+id/linearLayout2"
+            android:layout_alignEnd="@+id/linearLayout2"
+            android:layout_marginBottom="10dp" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/editTextAddress"
+            android:layout_below="@+id/txtError"
+            android:layout_centerHorizontal="true"
+            android:background="#fff"
+            android:padding="7dp"
+            android:hint="http://"
+            android:gravity="left"
+            android:layout_gravity="center"
+            android:inputType="textUri" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/editTextDesc"
+            android:layout_below="@+id/EditTxtEmail"
+            android:layout_centerHorizontal="true"
+            android:background="#fff"
+            android:padding="7dp"
+            android:layout_marginTop="10dp"
+            android:hint="یک توضیح برای این سایت بنویسید (اختیاری)"
+            android:gravity="right"
+            android:layout_gravity="center"
+            android:minLines="4"
+            android:textSize="13dp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="نام کاربری یا کلمه عبور اشتباه است."
+            android:id="@+id/txtError"
+            android:textColor="#ff0000"
+            android:visibility="gone"
+            android:layout_above="@+id/linearLayout2"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="5dp" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/prgProgress"
+            android:visibility="gone"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="ارسال"
+            android:id="@+id/btnSubmit"
+            android:layout_gravity="center"
+            android:background="@drawable/green_bg_rounded_border"
+            android:textColor="#fff"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+</ScrollView>

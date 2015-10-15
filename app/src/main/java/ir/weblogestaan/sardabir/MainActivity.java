@@ -7,13 +7,17 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -39,36 +43,15 @@ public class MainActivity extends BaseActivity {
     public static String base_url = "http://weblogestaan.ir";
     public static Typeface typeFace;
     public ArrayList<Post> allPosts;
-    public ArrayList<Subject> allCategories;
+    public FeedFragment mMainPageFragment;
     public static ListView AllPostListView ;
     public static PostAdapter AllPostListViewArrayAdapter ;
     public static View ListFooter;
-    private ProgressDialog progress;
     private ProgressBar prgProgress;
-    static String searched_subject = "";
     static int current_page;
-    private ImageButton btnActivitySubjects, btnActivityFeed;
+    private boolean onLoading = false;
 
-    public static boolean isLoaded, mustRefresh;
-
-    public void initNavigation()
-    {
-        btnActivitySubjects = (ImageButton) findViewById(R.id.btnImgSubjects);
-        btnActivitySubjects.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.this.startActivity(new Intent(v.getContext(),SubjectsActivity.class));
-                MainActivity.this.overridePendingTransition(0, 0);
-            }
-        });
-        btnActivityFeed = (ImageButton) findViewById(R.id.btnImgFeed);
-        btnActivityFeed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AllPostListView.smoothScrollToPosition(0);
-            }
-        });
-    }
+    public static boolean isLoaded, mustRefresh, prependData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +61,24 @@ public class MainActivity extends BaseActivity {
         prgProgress.setVisibility(View.GONE);
         typeFace = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Yekan.ttf");
         isLoaded = false;
+        onLoading = false;
         mustRefresh = false;
-        initNavigation();
+
+        TextView txtHeaderTitle = (TextView) findViewById(R.id.txtHeaderTitle);
+        txtHeaderTitle.setText("آخرین مطالب");
+        txtHeaderTitle.setTypeface(typeFace);
+        initHeader(new HeaderInitializer() {
+            @Override
+            public void init() {
+                AllPostListView.smoothScrollToPosition(0);
+                headerImgBtnFirst.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_rotate));
+                current_page = 0;
+                mustRefresh = true;
+                prependData = true;
+                LoadPosts(0,true);
+            }
+        });
+        setStatusbarColor();
         main_rule();
     }
 
@@ -113,9 +112,13 @@ public class MainActivity extends BaseActivity {
     }
 
     public void LoadPosts(int page,boolean add) {
+        if (page == 0)
+            PostParams.NODE_LAST_NID = "0";
+        if (onLoading)
+            return;
         String url = base_url+"/REST/get/feed?ok=BEZAR17&page="+page;
         HttpService p = new HttpService(getBaseContext(),url, add);
-        p.ls = PostParams.BasePostParams();
+        p.ls = session.BasePostParams();
         new GetPostsTask().execute(p);
     }
 
@@ -123,6 +126,7 @@ public class MainActivity extends BaseActivity {
     {
         boolean getToAdd = false;
         protected void onPreExecute() {
+            onLoading = true;
             if (mustRefresh)
                 toggleProgress(true);
         }
@@ -136,13 +140,20 @@ public class MainActivity extends BaseActivity {
         @Override
         protected void onPostExecute(JSONObject jsonResp)
         {
+            onLoading = false;
             try {
                 if(getToAdd == false)
                 {
                     setPostListAdapter(jsonResp);
                 }
-                else
-                    AddToList(jsonResp);
+                else {
+                    if (prependData == false)
+                        AddToList(jsonResp);
+                    else {
+                        headerImgBtnFirst.clearAnimation();
+                        PrependToList(jsonResp);
+                    }
+                }
                 if (mustRefresh) {
                     mustRefresh = false;
                     toggleProgress(mustRefresh);
@@ -168,6 +179,8 @@ public class MainActivity extends BaseActivity {
             }
             else
                 RenewMainPageFragment();
+        } else {
+            RemoveListFooter();
         }
     }
 
@@ -177,8 +190,12 @@ public class MainActivity extends BaseActivity {
         ArrayList<Post> u = new ArrayList<Post>();
         JSONArray childs = jsonResp.getJSONArray("result");
         String total = jsonResp.getString("total_posts");
+        if (jsonResp.has("notif_count")){
+            Log.e("notif_co",jsonResp.getString("notif_count"));
+            setNotifsCount(jsonResp.getString("notif_count"));
+        }
         Log.e("C Length", childs.length()+"");
-        if (jsonResp.has("user") == true) {
+        if (jsonResp.has("user")) {
             try {
                 User.Login(User.parseUser(jsonResp.getJSONObject("user")));
                 afterLogin();
@@ -190,12 +207,12 @@ public class MainActivity extends BaseActivity {
         {
             try{
                 JSONObject maindata = childs.getJSONObject(i);
+
                 Post p = Post.parsePost(maindata);
                 u.add(p);
             }
             catch(Exception cx)
             {
-                u.add(new Post());
                 Log.e("POST PARSE ERROR", cx.getMessage());
             }
         }
@@ -223,7 +240,29 @@ public class MainActivity extends BaseActivity {
         }
         if(p.isEmpty() == false)
         {
-            boolean b = AllPostListViewArrayAdapter.setData(AllPostListView,p);
+            boolean b = AllPostListViewArrayAdapter.setData(AllPostListView, p);
+            if(b == false)
+            {
+                RemoveListFooter();
+            }
+            AllPostListViewArrayAdapter.notifyDataSetChanged();
+        } else {
+            RemoveListFooter();
+        }
+    }
+    private void PrependToList(JSONObject jsonArray) {
+        prependData  = false;
+        ArrayList<Post> p = null;
+        try {
+            p = ParsePosts(jsonArray);
+        } catch (JSONException e) {
+            p = new ArrayList<>();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        if(p.isEmpty() == false)
+        {
+            boolean b = AllPostListViewArrayAdapter.prependData(AllPostListView, p);
             if(b == false)
             {
                 AllPostListView.removeFooterView(ListFooter);
@@ -238,7 +277,7 @@ public class MainActivity extends BaseActivity {
             int total = 100;
             boolean b = AllPostListViewArrayAdapter.setData(AllPostListView, allPosts);
             if (b == false) {
-                AllPostListView.removeFooterView(ListFooter);
+                RemoveListFooter();
             }
             AllPostListViewArrayAdapter.notifyDataSetChanged();
             View footer = ListFooter;
@@ -252,7 +291,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void  SetMainPageFragment() {
-        FeedFragment mMainPageFragment = new FeedFragment();
+        mMainPageFragment = new FeedFragment();
         Bundle args = new Bundle();
         args.putSerializable("posts", allPosts);
 
@@ -262,6 +301,20 @@ public class MainActivity extends BaseActivity {
         getFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, mMainPageFragment)
                 .commitAllowingStateLoss();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PostParams.RENEWS_ACTIVITY_CODE && resultCode == PostParams.RENEWS_ACTIVITY_RESULT_SUCCESS_CODE) {
+            Bundle bundle = data.getExtras();
+            Post post = (Post)bundle.getSerializable("post");
+            if (post != null && post.position != null) {
+                post.reposted = "yes";
+                AllPostListViewArrayAdapter.posts.set(Integer.parseInt(post.position), post);
+                AllPostListViewArrayAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
     /* Helper Functions */
@@ -284,6 +337,27 @@ public class MainActivity extends BaseActivity {
         else
             prgProgress.setVisibility(View.GONE);
     }
+
+    /*boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed() {
+
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "برای خروج یک بار دیگر بازگشت را لمس کنید", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }*/
 
 
 }

@@ -1,37 +1,45 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:orientation="horizontal" tools:context=".MainActivity"
-    android:weightSum="1">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+    <include layout="@layout/header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.15">
-        <include layout="@layout/header"
+        android:id="@+id/include"></include>
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent" android:orientation="horizontal" tools:context=".MainActivity"
+        android:weightSum="1"
+        android:id="@+id/toSwipeLL"
+        android:layout_below="@+id/include">
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"></include>
-        <FrameLayout
-            android:id="@+id/content_frame"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="#fff"
-            android:layout_marginTop="40dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.15">
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="2dp"
-                android:minHeight="30dp"
-                android:minWidth="30dp"
-                android:layout_gravity="center" />
-        </FrameLayout>
-    </RelativeLayout>
+            <FrameLayout
+                android:id="@+id/content_frame"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#fff"
+                android:layout_weight="0.15">
 
-    <include layout="@layout/navigation_bar"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="0.85"></include>
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="2dp"
+                    android:minHeight="30dp"
+                    android:minWidth="30dp"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+        </RelativeLayout>
 
-</LinearLayout>
+        <include layout="@layout/navigation_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.85"
+            android:id="@+id/navigation_pan"></include>
+
+    </LinearLayout>
+</RelativeLayout>

@@ -6,29 +6,70 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:configChanges="orientation|screenSize"
+        android:screenOrientation="portrait"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:logo="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:logo="@mipmap/ic_launcher"
-            android:name="ir.weblogestaan.sardabir.SubjectsActivity"></activity>
+            android:name=".MainActivity">
+        </activity>
         <activity
             android:logo="@mipmap/ic_launcher"
-            android:name="ir.weblogestaan.sardabir.TermActivity"></activity>
+            android:name=".LoginActivity"></activity>
         <activity
             android:logo="@mipmap/ic_launcher"
-            android:name="ir.weblogestaan.sardabir.LinkActivity"></activity>
+            android:name=".SubjectsActivity"></activity>
         <activity
             android:logo="@mipmap/ic_launcher"
-            android:name="ir.weblogestaan.sardabir.RenewsActivity"></activity>
+            android:name=".TermActivity"></activity>
+        <activity
+            android:logo="@mipmap/ic_launcher"
+            android:name=".LinkActivity"></activity>
+        <activity
+            android:logo="@mipmap/ic_launcher"
+            android:name=".RenewsActivity"></activity>
+        <activity
+            android:logo="@mipmap/ic_launcher"
+            android:name=".HotActivity"></activity>
+        <activity
+            android:logo="@mipmap/ic_launcher"
+            android:name=".NotificationsActivity"></activity>
+        <activity
+            android:logo="@mipmap/ic_launcher"
+            android:name=".ProfileActivity"></activity>
+        <activity
+            android:logo="@mipmap/ic_launcher"
+            android:name=".FriendsActivity"></activity>
+        <activity
+            android:logo="@mipmap/ic_launcher"
+            android:name=".RegisterActivity"></activity>
+        <activity
+            android:logo="@mipmap/ic_launcher"
+            android:name=".SuggestActivity"></activity>
+
+        <activity
+            android:logo="@mipmap/ic_launcher"
+            android:name=".RessetpassActivity"></activity>
+
+        <activity
+            android:logo="@mipmap/ic_launcher"
+            android:name=".GuestActivity"></activity>
+
+        <activity
+            android:logo="@mipmap/ic_launcher"
+            android:name=".EditprofileActivity"></activity>
+        <activity
+            android:logo="@mipmap/ic_launcher"
+            android:name=".UsersActivity"></activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

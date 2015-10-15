@@ -1,14 +1,8 @@
 package ir.weblogestaan.sardabir;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,27 +14,21 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.picasso.Picasso;
 
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import ir.weblogestaan.sardabir.Adapters.PostAdapter;
 import ir.weblogestaan.sardabir.Classes.Post;
 import ir.weblogestaan.sardabir.Classes.PostParams;
 import ir.weblogestaan.sardabir.Classes.Renews;
-import ir.weblogestaan.sardabir.Classes.Subject;
 import ir.weblogestaan.sardabir.Classes.User;
-import ir.weblogestaan.sardabir.Fragments.TermFragment;
-import ir.weblogestaan.sardabir.Network.HttpService;
 
-public class RenewsActivity extends ActionBarActivity implements Renews.RenewsResult {
+public class RenewsActivity extends BaseActivity implements Renews.RenewsResult,Serializable {
 
-    public Post post;
+    public transient Post post;
     EditText editTextComment;
+    ImageButton btnSend;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +36,12 @@ public class RenewsActivity extends ActionBarActivity implements Renews.RenewsRe
         Typeface typeFace = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Yekan.ttf");
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(this));
         Intent i = getIntent();
-        post = (Post)i.getSerializableExtra("post");
+        Bundle bundle = i.getExtras();
+        post = (Post)bundle.getSerializable("post");
         ArrayList<Post> p = new ArrayList<>();
         p.add(post);
         ListView lsPostItem = (ListView) findViewById(R.id.lsPostItem);
-        lsPostItem.setAdapter(new PostAdapter(this, p, true));
+        lsPostItem.setAdapter(new PostAdapter(this, p, true, false));
         ImageView imgUser = (ImageView) findViewById(R.id.imgUserLogo);
         String url =  (PostParams.current_user != null) ? PostParams.current_user.image : "" ;
         if (url != "" && url != null) {
@@ -72,27 +61,35 @@ public class RenewsActivity extends ActionBarActivity implements Renews.RenewsRe
 
         editTextComment = (EditText) findViewById(R.id.editTxtComment);
         editTextComment.setTypeface(typeFace);
-        ImageButton btnSend = (ImageButton) findViewById(R.id.btnImgSend);
+        btnSend = (ImageButton) findViewById(R.id.btnImgSend);
         final RenewsActivity that = this;
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Renews r = new Renews(v.getContext(),editTextComment.getText().toString(),post,User.GetCurrentUser());
                 r.callback = that;
+                Toast.makeText(v.getContext(),"در حال ارسال ...",Toast.LENGTH_SHORT).show();
                 r.Post();
+                btnSend.setVisibility(View.GONE);
             }
         });
+        setStatusbarColor();
     }
 
     @Override
     public void onError() {
         Toast.makeText(this,"مشکلی در ارسال وجود دارد...",Toast.LENGTH_LONG).show();
+        btnSend.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onSuccess() {
         Toast.makeText(this,"با موفقیت ارسال شد",Toast.LENGTH_LONG).show();
-        setResult(1001);
+        Intent intent = getIntent();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("post", post);
+        intent.putExtras(bundle);
+        setResult(PostParams.RENEWS_ACTIVITY_RESULT_SUCCESS_CODE, intent);
         finish();
     }
 }

@@ -9,10 +9,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +25,9 @@ import java.util.ArrayList;
 
 import ir.weblogestaan.sardabir.Classes.Cache;
 import ir.weblogestaan.sardabir.Classes.PostParams;
+import ir.weblogestaan.sardabir.Classes.Session;
 import ir.weblogestaan.sardabir.Classes.Subject;
+import ir.weblogestaan.sardabir.Classes.User;
 import ir.weblogestaan.sardabir.Fragments.SubjectsFragment;
 import ir.weblogestaan.sardabir.Network.HttpService;
 
@@ -29,10 +35,14 @@ public class SubjectsActivity extends BaseActivity {
 
     private ImageButton btnActivitySubjects, btnActivityFeed;
     public static boolean changed = false;
+    public static int selectedCount = 0;
+    boolean isFromLogin = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subjects);
+        Intent i = getIntent();
+        isFromLogin  = i.getBooleanExtra("isFromLogin", false);
         Typeface typeFace = Typeface.createFromAsset(this.getAssets(), "fonts/Yekan.ttf");
         btnActivitySubjects = (ImageButton) findViewById(R.id.btnImgSubjects);
         btnActivityFeed = (ImageButton) findViewById(R.id.btnImgFeed);
@@ -52,8 +62,31 @@ public class SubjectsActivity extends BaseActivity {
         changed = false;
 
         TextView txtHeaderTitle = (TextView) findViewById(R.id.txtHeaderTitle);
-        txtHeaderTitle.setText("موضوعات");
+        if (isFromLogin) {
+            CloseDrawer();
+            txtHeaderTitle.setText("موضوعات مورد علاقه را دنبال کنید");
+            imgBtnDrawer.setVisibility(View.INVISIBLE);
+            headerImgBtnFirst.setImageResource(R.mipmap.ic_done);
+            headerImgBtnFirst.setVisibility(View.VISIBLE);
+            headerImgBtnFirst.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    v.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_on_click));
+                    if (selectedCount <= 0) {
+                        Toast t = Toast.makeText(getApplicationContext(), "حداقل یک موضوع را انتخاب کنید", Toast.LENGTH_LONG);
+                        t.setGravity(Gravity.CENTER,0,0);
+                        t.show();
+                        return;
+                    }
+                    gotoMainActivity(true);
+                }
+            });
+        }
+        else {
+            txtHeaderTitle.setText("موضوعات");
+        }
         txtHeaderTitle.setTypeface(typeFace);
+        setStatusbarColor();
         afterLogin();
         main_rule();
     }
@@ -81,7 +114,7 @@ public class SubjectsActivity extends BaseActivity {
             SetSubjectsFragment(Cache.subjects);
         String url = PostParams.getBaseUrl()+"/REST/get/subject_all?ok=BEZAR17&page="+page;
         HttpService p = new HttpService(getApplicationContext(),url, false);
-        p.ls = PostParams.BasePostParams();
+        p.ls = session.BasePostParams();
         new GetSubjectsTask().execute(p);
     }
 
@@ -112,9 +145,9 @@ public class SubjectsActivity extends BaseActivity {
         }
     }
 
+
     private void setPostListAdapter(JSONObject jsonArray) throws JSONException {
         ArrayList<Subject> u = ParseSubjects(jsonArray);
-        Log.e("U  -Length", u.size() + "");
         if(u.size()>0)
         {
             Cache.subjects = u;
@@ -125,10 +158,13 @@ public class SubjectsActivity extends BaseActivity {
     private ArrayList<Subject> ParseSubjects(JSONObject jsonResp) throws JSONException
     {
         if(jsonResp == null)
-            return new ArrayList<Subject>();
+            return new ArrayList<>();
         ArrayList<Subject> u = new ArrayList<Subject>();
         JSONArray childs = jsonResp.getJSONArray("result");
         String total = jsonResp.getString("total_posts");
+        if (jsonResp.has("notif_count")){
+            setNotifsCount(jsonResp.getString("notif_count"));
+        }
         for(int i=0;i<childs.length();i++)
         {
             try{

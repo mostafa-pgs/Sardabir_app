@@ -12,7 +12,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#e74c3c"
+            android:background="#2371AF"
             android:weightSum="6">
 
             <ImageButton
@@ -84,7 +84,7 @@
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:id="@+id/imgUserLogo"
-            android:layout_gravity="center"
+            android:layout_gravity="center|right"
             android:minHeight="32dp"
             android:minWidth="32dp"
             android:layout_weight="1"

@@ -3,7 +3,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="15dp"
-    android:background="@drawable/border_bottom">
+    android:background="@drawable/border_bottom"
+    android:id="@+id/yu">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -79,7 +80,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="6"
-                android:id="@+id/followersBox"></RelativeLayout>
+                android:id="@+id/followersBox">
+                <ir.weblogestaan.sardabir.Classes.CircleImageView
+                    android:id="@+id/img0"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentTop="false"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:scaleType="fitXY"
+                    android:layout_centerInParent="true" />
+                <ir.weblogestaan.sardabir.Classes.CircleImageView
+                    android:id="@+id/img1"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentTop="false"
+                    android:layout_toRightOf="@+id/img2"
+                    android:layout_toEndOf="@+id/img2"
+                    android:scaleType="fitXY"
+                    android:layout_centerInParent="true" />
+                <ir.weblogestaan.sardabir.Classes.CircleImageView
+                    android:id="@+id/img2"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentTop="false"
+                    android:layout_toRightOf="@+id/img3"
+                    android:layout_toEndOf="@+id/img3"
+                    android:scaleType="fitXY"
+                    android:layout_centerInParent="true" />
+                <ir.weblogestaan.sardabir.Classes.CircleImageView
+                    android:id="@+id/img3"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentTop="false"
+                    android:layout_toRightOf="@+id/img4"
+                    android:layout_toEndOf="@+id/img4"
+                    android:scaleType="fitXY"
+                    android:layout_centerInParent="true" />
+                <ir.weblogestaan.sardabir.Classes.CircleImageView
+                    android:id="@+id/img4"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentTop="false"
+                    android:layout_toRightOf="@+id/img0"
+                    android:layout_toEndOf="@+id/img0"
+                    android:scaleType="fitXY"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"

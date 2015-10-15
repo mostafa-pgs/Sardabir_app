@@ -3,15 +3,16 @@ package ir.weblogestaan.sardabir.Classes;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
+import android.util.Log;
 import android.widget.ImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Post implements Serializable{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1652131379131L;
 	ImageView imageView;
-    public String nid,title,body,date_create,date_str_fa,date_str_en,image_url,blog_id,blog_name,blog_address,renewser,like_count,renews_count,total_posts,liked,reposted,link;
+    public String nid,title,body,date_create,date_str_fa,date_str_en,image_url,blog_id,blog_name,blog_address,renewser,like_count,renews_count,total_posts,liked,reposted,link, position;
 	public Subject subject;
 	public Post()
 	{
@@ -26,7 +27,7 @@ public class Post implements Serializable{
 
 		n.setID(jsonReminder.getString("nid"));
 		for(Field f : n.getClass().getFields()) {
-			if (f.getName() == "subject")
+			if (f.getName().equals("subject"))
 			{
 				if (jsonReminder.has(f.getName()))
 					f.set(n,Subject.parseSubject(jsonReminder.getJSONObject(f.getName())));
@@ -34,10 +35,11 @@ public class Post implements Serializable{
 					f.set(n,new Subject());
 				continue;
 			}
-            if (jsonReminder.has(f.getName()))
-				f.set(n,jsonReminder.get(f.getName()));
+            if (jsonReminder.has(f.getName())) {
+				f.set(n, jsonReminder.get(f.getName()));
+			}
 			else
-				f.set(n,"empty");
+				f.set(n,null);
 		}
 
 		return n;

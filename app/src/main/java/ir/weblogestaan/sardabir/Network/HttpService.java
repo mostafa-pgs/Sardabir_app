@@ -27,6 +27,7 @@ import ir.weblogestaan.sardabir.MainActivity;
 
 public class HttpService
 {
+    public String encoding = "UTF-8";
     public String url = "";
     public boolean toAdd = false;
     public List<NameValuePair> ls;
@@ -50,7 +51,7 @@ public class HttpService
             HttpGet httpGet = new HttpGet(url);
 
             HttpProtocolParams.setUseExpectContinue(httpClient.getParams(), false);
-            HttpConnectionParams.setConnectionTimeout(httpClient.getParams(), 10000); //Timeout Limit
+            HttpConnectionParams.setConnectionTimeout(httpClient.getParams(), 30000); //Timeout Limit
             HttpRequestRetryHandler retryHandler = new HttpRequestRetryHandler() {
 
                 @Override
@@ -83,7 +84,7 @@ public class HttpService
         JSONObject jsonArr = null;
         if (httpEntity != null) {
             try {
-                String entityResponse = EntityUtils.toString(httpEntity);
+                String entityResponse = EntityUtils.toString(httpEntity, this.encoding);
                 Log.e("response was",entityResponse);
                 jsonArr = new JSONObject(entityResponse);
             } catch (JSONException e) {
@@ -109,7 +110,7 @@ public class HttpService
             HttpGet httpGet = new HttpGet(url);
 
             HttpProtocolParams.setUseExpectContinue(httpClient.getParams(), false);
-            HttpConnectionParams.setConnectionTimeout(httpClient.getParams(), 10000); //Timeout Limit
+            HttpConnectionParams.setConnectionTimeout(httpClient.getParams(), 30000); //Timeout Limit
             HttpRequestRetryHandler retryHandler = new HttpRequestRetryHandler() {
 
                 @Override
@@ -130,9 +131,6 @@ public class HttpService
             HttpResponse httpResponse = httpClient.execute(httpGet);
 
             httpEntity = httpResponse.getEntity();
-
-
-
         } catch (ClientProtocolException e) {
             // Signals error in http protocol
             Log.e("--- Protocol  : ", e.getMessage());
@@ -145,7 +143,7 @@ public class HttpService
         JSONArray jsonArr = null;
         if (httpEntity != null) {
             try {
-                String entityResponse = EntityUtils.toString(httpEntity);
+                String entityResponse = EntityUtils.toString(httpEntity, this.encoding);
                 Log.e("response was",entityResponse);
                 jsonArr = new JSONArray(entityResponse);
             } catch (JSONException e) {
@@ -165,7 +163,7 @@ public class HttpService
         HttpPost httppost = new HttpPost(this.url);
         Log.e("POST Sent Url :  ", url);
         try {
-            httppost.setEntity(new UrlEncodedFormEntity(this.ls));
+            httppost.setEntity(new UrlEncodedFormEntity(this.ls,this.encoding));
 
             // Execute HTTP Post Request
             HttpResponse response = httpclient.execute(httppost);
@@ -181,7 +179,7 @@ public class HttpService
         JSONArray jsonArr = null;
         if (httpEntity != null) {
             try {
-                String entityResponse = EntityUtils.toString(httpEntity);
+                String entityResponse = EntityUtils.toString(httpEntity, this.encoding);
                 Log.e("POST Respons was : ", entityResponse);
                 jsonArr = new JSONArray(entityResponse);
                 return jsonArr;
@@ -202,7 +200,7 @@ public class HttpService
         Log.e("POST Sent Url :  ", url);
         try {
             if (this.ls != null)
-                httppost.setEntity(new UrlEncodedFormEntity(this.ls));
+                httppost.setEntity(new UrlEncodedFormEntity(this.ls,this.encoding));
 
             // Execute HTTP Post Request
             HttpResponse response = httpclient.execute(httppost);
@@ -218,7 +216,7 @@ public class HttpService
         JSONObject jsonObj = null;
         if (httpEntity != null) {
             try {
-                String entityResponse = EntityUtils.toString(httpEntity);
+                String entityResponse = EntityUtils.toString(httpEntity, this.encoding);
                 Log.e("POST Respons was : ", entityResponse);
                 jsonObj = new JSONObject(entityResponse);
                 return jsonObj;

@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/border_left_gray">
+<RelativeLayout
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:background="#f7f7f7">
+    android:layout_height="wrap_content">
     <ImageView
-        android:layout_width="65dp"
-        android:layout_height="63dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/imgProfileImage"
         android:layout_gravity="center_horizontal|top"
         android:src="@mipmap/user_placeholder"
-        android:scaleType="fitXY"
+        android:scaleType="fitStart"
         android:cropToPadding="false"
         android:focusable="true"
         android:background="#00000000"
-        android:maxHeight="63dp"
+        android:maxHeight="60dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="5"
-        android:layout_marginTop="65dp">
+        android:layout_marginTop="56dp">
 
         <ImageButton
             android:layout_width="28dp"
@@ -28,10 +30,35 @@
             android:id="@+id/btnImgFeed"
             android:src="@mipmap/feed"
             android:background="#00000000"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            android:padding="5dp" />
+
+        <ImageButton
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:id="@+id/btnImgHot"
+            android:src="@mipmap/hot"
+            android:background="#00000000"
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="20dp"
+            android:padding="5dp" />
+
+        <ImageButton
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:id="@+id/btnImgFriends"
+            android:src="@mipmap/friends"
+            android:background="#00000000"
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="20dp"
+            android:padding="5dp" />
 
         <ImageButton
             android:layout_width="28dp"
@@ -39,21 +66,44 @@
             android:id="@+id/btnImgSubjects"
             android:src="@mipmap/subjects"
             android:background="#00000000"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            android:padding="5dp" />
 
-        <ImageButton
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:id="@+id/btnImgNotifications"
-            android:src="@mipmap/bell"
-            android:background="#00000000"
-            android:scaleType="fitCenter"
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp">
+            <ImageButton
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:id="@+id/btnImgNotifications"
+                android:src="@mipmap/bell"
+                android:background="#00000000"
+                android:scaleType="fitXY"
+                android:layout_gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:padding="5dp" />
+
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="22"
+                android:id="@+id/txtNotifCount"
+                android:background="@drawable/circle"
+                android:gravity="center"
+                android:textSize="7dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignLeft="@+id/btnImgNotifications"
+                android:layout_alignStart="@+id/btnImgNotifications"
+                android:visibility="gone" />
+        </RelativeLayout>
 
         <ImageButton
             android:layout_width="28dp"
@@ -61,10 +111,23 @@
             android:id="@+id/btnImgSuggest"
             android:src="@mipmap/suggest"
             android:background="#00000000"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            android:padding="5dp" />
+
+        <ImageButton
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:id="@+id/btnImgLogout"
+            android:src="@mipmap/logout"
+            android:background="#00000000"
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="20dp"
+            android:padding="5dp" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleSmall"
@@ -75,3 +138,4 @@
             android:visibility="gone" />
     </LinearLayout>
 </RelativeLayout>
+</ScrollView>

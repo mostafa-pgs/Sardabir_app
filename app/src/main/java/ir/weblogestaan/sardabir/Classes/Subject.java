@@ -1,5 +1,7 @@
 package ir.weblogestaan.sardabir.Classes;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +29,7 @@ public class Subject implements Serializable {
         Subject n = new Subject();
         n.setID(jsonReminder.getString("tid"));
         for(Field f : n.getClass().getFields()) {
-            if (f.getName() == "followers")
+            if (f.getName().equals("followers"))
             {
                 ArrayList<User> fs = new ArrayList<>();
                 if (jsonReminder.has(f.getName())) {
@@ -41,7 +43,7 @@ public class Subject implements Serializable {
             if (jsonReminder.has(f.getName()))
                 f.set(n,jsonReminder.get(f.getName()));
             else
-                f.set(n,"");
+                f.set(n,null);
         }
 
         return n;

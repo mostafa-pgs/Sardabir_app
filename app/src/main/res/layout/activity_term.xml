@@ -1,13 +1,20 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:orientation="horizontal" tools:context=".MainActivity"
-    android:weightSum="1">
+    android:layout_height="match_parent">
 
+    <include layout="@layout/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/include"></include>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent" android:orientation="horizontal" tools:context=".MainActivity"
+        android:weightSum="1"
+        android:id="@+id/toSwipeLL"
+        android:layout_below="@+id/include">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.15">
 
             <FrameLayout
@@ -26,12 +33,13 @@
                     android:minWidth="30dp"
                     android:layout_gravity="center" />
             </FrameLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
+        <include layout="@layout/navigation_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.85"
+            android:id="@+id/navigation_pan"></include>
 
-    <include layout="@layout/navigation_bar"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="0.85"></include>
-
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

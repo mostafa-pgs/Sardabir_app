@@ -45,10 +45,9 @@ public class TermFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         posts = (ArrayList<Post>) getArguments().getSerializable("posts");
         subject = (Subject) getArguments().getSerializable("subject");
-        Log.e("Subject LN", posts.size()+"");
         total = 1000;
         View rootView = inflater.inflate(R.layout.feed_feragment, container, false);
         Typeface typeFace = Typeface.createFromAsset(container.getContext().getAssets(), "fonts/Yekan.ttf");
@@ -77,27 +76,45 @@ public class TermFragment extends Fragment {
         if (subject.followers.size() > 0) {
             for (int i=0; i<subject.followers.size(); i++) {
                 final User u = subject.followers.get(i);
-                CircleImageView userImage = new CircleImageView(container.getContext());
+                CircleImageView userImage ;
+                switch (i) {
+                    case 0:
+                        userImage = (CircleImageView)followersBox.findViewById(R.id.img0);
+                        break;
+                    case 1:
+                        userImage = (CircleImageView)followersBox.findViewById(R.id.img1);
+                        break;
+                    case 2:
+                        userImage = (CircleImageView)followersBox.findViewById(R.id.img2);
+                        break;
+                    case 3:
+                        userImage = (CircleImageView)followersBox.findViewById(R.id.img3);
+                        break;
+                    case 4:
+                        userImage = (CircleImageView)followersBox.findViewById(R.id.img4);
+                        break;
+                    default:
+                        userImage = (CircleImageView)followersBox.findViewById(R.id.img0);
+                        break;
+                }
                 try {
-                   ImageLoader.getInstance().displayImage(u.image, userImage, Cache.getImageDisplayOptions());
+                    ImageLoader.getInstance().displayImage(u.image, userImage, Cache.getImageDisplayOptions());
                 } catch (Exception e) {
                     userImage.setVisibility(View.GONE);
-                    Log.e("nashod", u.image);
                 }
                 userImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(v.getContext(), u.username, Toast.LENGTH_LONG).show();
+                        u.gotoProfileActivity(container.getContext());
                     }
                 });
-                followersBox.addView(userImage);
             }
         } else {
             followersBox.setVisibility(View.INVISIBLE);
         }
         ls.addHeaderView(header);
 
-        PostAdapter m = new PostAdapter(container.getContext(),posts,false);
+        PostAdapter m = new PostAdapter(container.getContext(), posts, false, false);
         ls.setAdapter(m);
 
         View footer = inflater.inflate(R.layout.main_list_view_footer, null,false);

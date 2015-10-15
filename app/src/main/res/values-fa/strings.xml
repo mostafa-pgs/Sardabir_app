@@ -28,4 +28,12 @@
     <string name="str_charshanbe">چهارشنبه</string>
     <string name="str_panjshanbe">پنج شنبه</string>
     <string name="str_jome">جمعه</string>
+    <string name="str_suggest_rules">
+        "
+لطفا سایتی را معرفی کنید که :\n
+۱- فیلتر نباشد و تابع قوانین کشور باشد\n
+۲-ترجیحا زود به زود آپدیت بشه  و رنک الکسای آن زیر ۱۰۰۰ باشد یعنی به عبارتی مشهور باشد\n
+۳- اگر زیاد مشهور نبود حداقل مطالب بدرد بخور بذاره که ارزش خواندن داشته باشه
+"
+    </string>
 </resources>

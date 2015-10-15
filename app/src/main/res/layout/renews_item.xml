@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    android:background="@drawable/box_shadow">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/txtRenewsComment"
+        android:layout_below="@+id/relativeLayout"
+        android:padding="10dp"
+        android:gravity="right"
+        android:textColor="#212121"
+        android:textSize="15sp" />
+
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        layout="@layout/post_item_mini"
+        android:layout_below="@+id/txtRenewsComment"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="7dp"
+        android:id="@+id/include4" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="20dp"
+        android:id="@+id/relativeLayout"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/imgRenewserLogo"
+            android:src="@mipmap/user_placeholder"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/txtRenewserName"
+            android:paddingRight="10dp"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:textColor="#4b4b4b"
+            android:gravity="right"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/imgRenewserLogo"
+            android:layout_toStartOf="@+id/imgRenewserLogo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/txtRenewsTime"
+            android:textColor="#b8b8b8"
+            android:textSize="11sp"
+            android:gravity="right"
+            android:layout_alignBottom="@+id/txtRenewserName"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/include4"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/border_top"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="3dp">
+        <ToggleButton
+            android:id="@+id/btnImgLike"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/like_check"
+            android:textOn=""
+            android:textOff=""
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="5dp"
+            android:checked="false"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="0"
+            android:id="@+id/txtRenewsLikeCount"
+            android:layout_alignBottom="@+id/btnImgLike"
+            android:layout_toLeftOf="@+id/btnImgLike"
+            android:layout_toStartOf="@+id/btnImgLike"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="بار"
+            android:id="@+id/txtLikeText"
+            android:layout_alignTop="@+id/txtRenewsLikeCount"
+            android:layout_toLeftOf="@+id/txtRenewsLikeCount"
+            android:layout_toStartOf="@+id/txtRenewsLikeCount"
+            android:layout_marginRight="5dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

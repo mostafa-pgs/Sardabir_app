@@ -11,11 +11,11 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/lsFeed"
-            android:background="#fff"
+            android:background="#f1f5f7"
             android:smoothScrollbar="true"
             android:scrollingCache="true"
-            android:dividerHeight="0.5dp"
-            android:divider="#cbcbcb"
+            android:dividerHeight="5dp"
+            android:divider="#00000000"
             />
 
     </RelativeLayout>
